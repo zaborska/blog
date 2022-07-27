@@ -1,0 +1,15 @@
+.modal{
+	width: 100vw;
+	height: 100vh;
+	position: fixed;
+	&.show{
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		background: rgba(0, 0, 0, .5);
+	}
+	a {
+		color: #ffffff;
+		text-decoration: none;
+	}
+}

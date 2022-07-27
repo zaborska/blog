@@ -1,0 +1,19 @@
+.add-new-post {
+	display: flex;
+	justify-content: center;
+	margin: 50px 100px;
+	padding: 50px;
+	border: 1px solid gray;
+	box-shadow: 10px 5px 5px yellow;
+	.title{
+		min-width: 800px;
+	}
+	.add-post-btn{
+		display: block;
+		margin: 10px auto;
+	}
+	.add-post{
+		min-height: 100px; 
+		max-height: 150px;
+	}	
+}

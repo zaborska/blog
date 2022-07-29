@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Routes, Route, Link } from 'react-router-dom';
 import { RingLoader } from 'react-spinners';
+import { useSelector, useDispatch } from 'react-redux';
+
 import Services from '../../services/services';
 
 import Post from '../post/Post';
@@ -11,13 +13,19 @@ import ChangePost from '../change-post/ChangePost';
 import FirstPage from '../first-page/FirstPage';
 import ErrorMessage from '../error/ErrorMessage';
 
+import {increment, decrement, fixed, fetchPosts} from '../../redux/postsSlice';
+
 function Posts() {
-  const [posts, setPosts] = useState([]);
+  const [posts1, setPosts] = useState([]);
   const [postId, setPostId] = useState(null);
   const [showModal, setShowModal] = useState('');
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(true);
   const { getResourse } = Services();
+  const dispatch = useDispatch();
+  const counter = useSelector(state => state.posts.counter);
+  const posts = useSelector(state => state.posts.data);
+
 
   useEffect(() => {
     onPostLoading();
@@ -25,6 +33,7 @@ function Posts() {
   }, []);
 
   const onPostLoading = () => {
+    dispatch(fetchPosts());
     getResourse('https://simple-blog-api.crew.red/posts')
       .then((result) => {
         setPosts(result);
@@ -104,6 +113,10 @@ function Posts() {
   const postItems = !errorMessage && !loadingPosts ? displayPosts() : null;
   return (
     <div>
+      <button onClick={() => dispatch(increment())}>Add</button><br/>
+      <button onClick={() => dispatch(decrement())}>Minus</button>
+      <button onClick={() => dispatch(fixed(10))}>Set 10</button>
+      <h1>{counter}</h1>
       <Routes>
         <Route path="/add-post" element={<AddPost onSuccess={addNewPost} />} />
 

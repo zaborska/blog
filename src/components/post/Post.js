@@ -1,21 +1,29 @@
 import React from 'react';
+import { useDispatch } from 'react-redux';
 import { Card, Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
+import { postIdSet } from '../posts/postsSlice';
+
 import './Post.scss';
 
 function Post(props) {
+
   const { id, title, post, onDelete, onOpen, onModalShow, getId } = props;
 
+  const dispatch = useDispatch();
+  
   const deletePost = (e) => {
     onDelete(e.target.getAttribute(['data-post-id']));
   };
 
   const openPost = (e) => {
-    onOpen(e.target.getAttribute(['data-post-id']));
+    dispatch(postIdSet(e.target.getAttribute(['data-post-id'])));
+	// onOpen(e.target.getAttribute(['data-post-id']));
   };
 
   const get = (e) => {
-    getId(e.target.getAttribute(['data-post-id']));
+    dispatch(postIdSet(e.target.getAttribute(['data-post-id'])));
+	// getId(e.target.getAttribute(['data-post-id']));
     onModalShow();
   };
 

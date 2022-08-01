@@ -1,6 +1,10 @@
 import React, { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { Routes, Route, Link } from 'react-router-dom';
 import { RingLoader } from 'react-spinners';
+import { fetchPosts } from '../actions';
+import { postDeleted } from './postsSlice';
+
 import Services from '../../services/services';
 
 import Post from '../post/Post';
@@ -12,28 +16,31 @@ import FirstPage from '../first-page/FirstPage';
 import ErrorMessage from '../error/ErrorMessage';
 
 function Posts() {
-  const [posts, setPosts] = useState([]);
   const [postId, setPostId] = useState(null);
   const [showModal, setShowModal] = useState('');
-  const [error, setError] = useState(false);
-  const [loading, setLoading] = useState(true);
+ 
   const { getResourse } = Services();
-
+  const dispatch = useDispatch();
+ 
+  const posts = useSelector(state => state.posts.posts);
+  const loading = useSelector(state => state.posts.loading);
+  const error = useSelector(state => state.posts.error);
+  
   useEffect(() => {
     onPostLoading();
-    setError(false);
   }, []);
 
   const onPostLoading = () => {
-    getResourse('https://simple-blog-api.crew.red/posts')
-      .then((result) => {
-        setPosts(result);
-        setLoading(false);
-      })
-      .catch((e) => {
-        setError(true);
-        setLoading(false);
-      });
+    // getResourse('https://simple-blog-api.crew.red/posts')
+    //   .then((result) => {
+    //     setPosts(result);
+    //     setLoading(false);
+    //   })
+    //   .catch((e) => {
+    //     setError(true);
+    //     setLoading(false);
+    //   });
+	dispatch(fetchPosts(getResourse));
   };
 
   const displayPosts = () => {
@@ -58,16 +65,15 @@ function Posts() {
   const addNewPost = (newPost) => {
     const newPosts = posts;
     newPosts.push(newPost);
-    setPosts(newPosts);
+    // setPosts(newPosts);
     onPostLoading();
   };
 
   const deletePost = (id) => {
-    let allPosts = posts;
-    allPosts = allPosts.filter((item) => item.id !== id);
+    const allPosts = posts.filter((item) => +item.id !== +id); 
     getResourse(`https://simple-blog-api.crew.red/posts/${id}`, 'DELETE').then(console.log('Ok'));
-    setPosts(allPosts);
-    setShowModal('');
+	dispatch(postDeleted(allPosts));
+	setShowModal('');
   };
 
   const onOpenModal = () => {
@@ -94,7 +100,7 @@ function Posts() {
       }
       return changedPost;
     });
-    setPosts(newArray);
+  //  setPosts(newArray);
   };
 
   const errorMessage = error ? <ErrorMessage /> : null;

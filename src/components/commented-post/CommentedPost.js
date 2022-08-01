@@ -1,6 +1,8 @@
 import { useParams, Link } from 'react-router-dom';
 import React, { useState, useEffect } from 'react';
-import { Card, ListGroup, ListGroupItem } from 'react-bootstrap';
+import { Card, ListGroup, ListGroupItem } from 'react-bootstrap'
+import { useDispatch } from 'react-redux';
+import { postIdSet } from '../posts/postsSlice';
 import Post from '../post/Post';
 import Services from '../../services/services';
 import ModalWindow from '../modal/Modal';
@@ -9,8 +11,9 @@ function CommentedPost(props) {
   const { id } = useParams();
   const { getResourse } = Services();
   const [post, setPost] = useState([]);
-
   const { onDelete, onClose, showModal, onModalShow } = props;
+
+  const dispatch = useDispatch();
 
   useEffect(() => {
     getResourse(`https://simple-blog-api.crew.red/posts/${id}?_embed=comments`).then((result) => {
@@ -39,7 +42,7 @@ function CommentedPost(props) {
           <i>{getComments()}</i>
         </ListGroup>
         <Card.Body>
-          <Link to="/posts" className="card-link">
+          <Link to="/posts" className="card-link" onClick={()=>dispatch(postIdSet(null))}>
             Back
           </Link>
           <Link to={`/posts/${id}/change`} className="card-link">
@@ -50,7 +53,7 @@ function CommentedPost(props) {
           </Card.Link>
         </Card.Body>
       </Card>
-      <ModalWindow showModal={showModal} onClose={onClose} onDelete={onDelete} postId={id} />
+      <ModalWindow showModal={showModal} onClose={onClose} onDelete={onDelete} />
     </div>
   );
 }

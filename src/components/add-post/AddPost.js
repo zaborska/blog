@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { Form, FloatingLabel, Button } from 'react-bootstrap';
 import Services from '../../services/services';
+import {postCreated} from '../posts/postsSlice';
 
 import './addPost.scss';
 
@@ -9,7 +11,7 @@ function AddPost(props) {
   const [body, setBody] = useState('');
 
   const { getResourse } = Services();
-
+  const dispatch = useDispatch();
   const onInput = (e) => {
     if (e.target.name === 'title') {
       setTitle(e.target.value);
@@ -25,7 +27,8 @@ function AddPost(props) {
     const data = JSON.stringify({ title, body });
     getResourse('https://simple-blog-api.crew.red/posts', 'POST', data)
       .then((result) => {
-        props.onSuccess(result);
+        dispatch(postCreated(result))
+		// props.onSuccess(result);
       })
       .then(() => {
         setTitle('');

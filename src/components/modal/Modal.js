@@ -2,9 +2,11 @@ import React from 'react';
 import { Modal, Button } from 'react-bootstrap';
 import './modal.scss';
 import { Link } from 'react-router-dom';
+import {useSelector} from 'react-redux';
 
-function ModalWindow({ showModal, onClose, onDelete, postId }) {
-  return (
+function ModalWindow({ showModal, onClose, onDelete }) {
+	const postId = useSelector(state => state.posts.postId);
+	return (
     <div className={`modal ${showModal}`}>
       <div className="modal__content">
         <Modal.Dialog>

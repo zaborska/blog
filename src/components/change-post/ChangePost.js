@@ -15,13 +15,14 @@ function ChangePost({ posts, onSuccess }) {
 
   useEffect(() => {
     const post = posts.filter((item) => {
-      if (item.id === id) {
+      if (item.id === +id) {
         setChangePost(item);
         setTitle(item.title);
         setBody(item.body);
       }
     });
   }, []);
+
 
   const onInput = (e) => {
     if (e.target.name === 'title') {

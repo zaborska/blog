@@ -2,23 +2,23 @@ import { useParams, Link } from 'react-router-dom';
 import React, { useState, useEffect } from 'react';
 import { Card, ListGroup, ListGroupItem } from 'react-bootstrap';
 import { useDispatch } from 'react-redux';
-import { postIdSet } from '../posts/postsSlice';
+import { postIdSet } from '../../slices/postsSlice';
 import Post from '../post/Post';
-import Services from '../../services/services';
+// import Services from '../../services/api';
 import ModalWindow from '../modal/Modal';
 
 function CommentedPost(props) {
   const { id } = useParams();
-  const { getResourse } = Services();
+  // const { getResourse } = Services();
   const [post, setPost] = useState([]);
   const { onDelete, onClose, showModal, onModalShow } = props;
 
   const dispatch = useDispatch();
 
   useEffect(() => {
-    getResourse(`https://simple-blog-api.crew.red/posts/${id}?_embed=comments`).then((result) => {
-      setPost(result);
-    });
+    // getResourse(`https://simple-blog-api.crew.red/posts/${id}?_embed=comments`).then((result) => {
+    //   setPost(result);
+    // });
   }, []);
 
   const getComments = () => {

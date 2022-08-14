@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { Form, FloatingLabel, Button } from 'react-bootstrap';
-import Services from '../../services/services';
-import { postCreated } from '../posts/postsSlice';
+// import Services from '../../services/api';
+import { postCreated } from '../../slices/postsSlice';
 
 import './addPost.scss';
 
@@ -10,7 +10,7 @@ function AddPost(props) {
   const [title, setTitle] = useState('');
   const [body, setBody] = useState('');
 
-  const { getResourse } = Services();
+  // const { getResourse } = Services();
   const dispatch = useDispatch();
   const onInput = (e) => {
     if (e.target.name === 'title') {
@@ -24,16 +24,16 @@ function AddPost(props) {
   };
 
   const onAddPost = () => {
-    const data = JSON.stringify({ title, body });
-    getResourse('https://simple-blog-api.crew.red/posts', 'POST', data)
-      .then((result) => {
-        dispatch(postCreated(result));
-        // props.onSuccess(result);
-      })
-      .then(() => {
-        setTitle('');
-        setBody('');
-      });
+    // const data = JSON.stringify({ title, body });
+    // getResourse('https://simple-blog-api.crew.red/posts', 'POST', data)
+    //   .then((result) => {
+    //     dispatch(postCreated(result));
+    //     // props.onSuccess(result);
+    //   })
+    //   .then(() => {
+    //     setTitle('');
+    //     setBody('');
+    //   });
   };
 
   const isDisabled = !title || !body;

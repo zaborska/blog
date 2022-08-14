@@ -2,10 +2,10 @@ import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Routes, Route, Link } from 'react-router-dom';
 import { RingLoader } from 'react-spinners';
-import { fetchPosts } from '../actions';
-import { postDeleted } from './postsSlice';
+import { fetchPosts } from '../../actions';
+import { postDeleted } from '../../slices/postsSlice';
 
-import Services from '../../services/services';
+// import Services from '../../services/api';
 
 import Post from '../post/Post';
 import AddPost from '../add-post/AddPost';
@@ -19,7 +19,7 @@ function Posts() {
   const [postId, setPostId] = useState(null);
   const [showModal, setShowModal] = useState('');
 
-  const { getResourse } = Services();
+  // const { getResourse } = Services();
   const dispatch = useDispatch();
 
   const posts = useSelector((state) => state.posts.posts);
@@ -40,7 +40,7 @@ function Posts() {
     //     setError(true);
     //     setLoading(false);
     //   });
-    dispatch(fetchPosts(getResourse));
+    dispatch(fetchPosts());
   };
 
   const displayPosts = () => {
@@ -71,7 +71,7 @@ function Posts() {
 
   const deletePost = (id) => {
     const allPosts = posts.filter((item) => +item.id !== +id);
-    getResourse(`https://simple-blog-api.crew.red/posts/${id}`, 'DELETE').then(console.log('Ok'));
+    // getResourse(`https://simple-blog-api.crew.red/posts/${id}`, 'DELETE').then(console.log('Ok'));
     dispatch(postDeleted(allPosts));
     setShowModal('');
   };

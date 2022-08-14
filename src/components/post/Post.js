@@ -2,7 +2,7 @@ import React from 'react';
 import { useDispatch } from 'react-redux';
 import { Card, Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
-import { postIdSet } from '../posts/postsSlice';
+import { postIdSet } from '../../slices/postsSlice';
 
 import './Post.scss';
 

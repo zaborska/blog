@@ -1,7 +1,9 @@
-const Services = () => {
-  const getResourse = (url, method = 'GET', data = null) => {
+class Api {
+  url = 'https://simple-blog-api.crew.red/';
+
+  fetch(url, data, method = 'GET') {
     try {
-      const request = fetch(url, {
+      const request = fetch(this.url + url, {
         method,
         headers: { 'Content-type': 'application/json' },
         body: data
@@ -16,15 +18,13 @@ const Services = () => {
     } catch (e) {
       console.log(e);
     }
+  }
 
-    // return fetch(url, {
-    // 	method: method,
-    // 	headers: { "Content-type": "application/json" },
-    // 	body: data
-    // }).then(response => response.json());
-  };
+  getPosts() {
+    return this.fetch('posts', null)
+  }
+}
 
-  return { getResourse };
-};
+const api = new Api(); 
 
-export default Services;
+export default api;

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Form, FloatingLabel, Button } from 'react-bootstrap';
 import { Link, useParams } from 'react-router-dom';
-import Services from '../../services/services';
+// import Services from '../../services/api';
 
 function ChangePost({ posts, onSuccess }) {
   const { id } = useParams();
@@ -11,7 +11,7 @@ function ChangePost({ posts, onSuccess }) {
   const [body, setBody] = useState('');
   const [comment, setComment] = useState(null);
 
-  const { getResourse } = Services();
+  // const { getResourse } = Services();
 
   useEffect(() => {
     const post = posts.filter((item) => {
@@ -37,26 +37,26 @@ function ChangePost({ posts, onSuccess }) {
 
   const onAddPost = () => {
     const data = JSON.stringify({ title, body });
-    getResourse(`https://simple-blog-api.crew.red/posts/${id}`, 'PUT', data)
-      .then((result) => {
-        onSuccess(result);
-      })
-      .then(() => {
-        setTitle('');
-        setBody('');
-      });
+    // getResourse(`https://simple-blog-api.crew.red/posts/${id}`, 'PUT', data)
+    //   .then((result) => {
+    //     onSuccess(result);
+    //   })
+    //   .then(() => {
+    //     setTitle('');
+    //     setBody('');
+    //   });
   };
 
   const onAddComment = () => {
     const data = JSON.stringify({ postId: +id, body: comment });
     console.log(data);
-    getResourse(`https://simple-blog-api.crew.red/comments`, 'POST', data)
-      .then((result) => {
-        console.log();
-      })
-      .then(() => {
-        setComment('');
-      });
+    // getResourse(`https://simple-blog-api.crew.red/comments`, 'POST', data)
+    //   .then((result) => {
+    //     console.log();
+    //   })
+    //   .then(() => {
+    //     setComment('');
+    //   });
   };
 
   const isDisabled = !title || !body;

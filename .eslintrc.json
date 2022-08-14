@@ -5,6 +5,9 @@
     "browser": true,
     "node": true //false
   },
+  "parserOptions": {
+    "ecmaVersion": 2022
+  },
   "rules": {
     "react/jsx-filename-extension": [
       1,

@@ -1,6 +1,6 @@
 import { useParams, Link } from 'react-router-dom';
 import React, { useState, useEffect } from 'react';
-import { Card, ListGroup, ListGroupItem } from 'react-bootstrap'
+import { Card, ListGroup, ListGroupItem } from 'react-bootstrap';
 import { useDispatch } from 'react-redux';
 import { postIdSet } from '../posts/postsSlice';
 import Post from '../post/Post';
@@ -42,7 +42,7 @@ function CommentedPost(props) {
           <i>{getComments()}</i>
         </ListGroup>
         <Card.Body>
-          <Link to="/posts" className="card-link" onClick={()=>dispatch(postIdSet(null))}>
+          <Link to="/posts" className="card-link" onClick={() => dispatch(postIdSet(null))}>
             Back
           </Link>
           <Link to={`/posts/${id}/change`} className="card-link">

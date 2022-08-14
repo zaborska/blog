@@ -23,7 +23,6 @@ function ChangePost({ posts, onSuccess }) {
     });
   }, []);
 
-
   const onInput = (e) => {
     if (e.target.name === 'title') {
       setTitle(e.target.value);

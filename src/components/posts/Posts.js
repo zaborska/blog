@@ -18,14 +18,14 @@ import ErrorMessage from '../error/ErrorMessage';
 function Posts() {
   const [postId, setPostId] = useState(null);
   const [showModal, setShowModal] = useState('');
- 
+
   const { getResourse } = Services();
   const dispatch = useDispatch();
- 
-  const posts = useSelector(state => state.posts.posts);
-  const loading = useSelector(state => state.posts.loading);
-  const error = useSelector(state => state.posts.error);
-  
+
+  const posts = useSelector((state) => state.posts.posts);
+  const loading = useSelector((state) => state.posts.loading);
+  const error = useSelector((state) => state.posts.error);
+
   useEffect(() => {
     onPostLoading();
   }, []);
@@ -40,7 +40,7 @@ function Posts() {
     //     setError(true);
     //     setLoading(false);
     //   });
-	dispatch(fetchPosts(getResourse));
+    dispatch(fetchPosts(getResourse));
   };
 
   const displayPosts = () => {
@@ -70,10 +70,10 @@ function Posts() {
   };
 
   const deletePost = (id) => {
-    const allPosts = posts.filter((item) => +item.id !== +id); 
+    const allPosts = posts.filter((item) => +item.id !== +id);
     getResourse(`https://simple-blog-api.crew.red/posts/${id}`, 'DELETE').then(console.log('Ok'));
-	dispatch(postDeleted(allPosts));
-	setShowModal('');
+    dispatch(postDeleted(allPosts));
+    setShowModal('');
   };
 
   const onOpenModal = () => {
@@ -100,7 +100,7 @@ function Posts() {
       }
       return changedPost;
     });
-  //  setPosts(newArray);
+    //  setPosts(newArray);
   };
 
   const errorMessage = error ? <ErrorMessage /> : null;

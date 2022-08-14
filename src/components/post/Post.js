@@ -7,23 +7,22 @@ import { postIdSet } from '../posts/postsSlice';
 import './Post.scss';
 
 function Post(props) {
-
   const { id, title, post, onDelete, onOpen, onModalShow, getId } = props;
 
   const dispatch = useDispatch();
-  
+
   const deletePost = (e) => {
     onDelete(e.target.getAttribute(['data-post-id']));
   };
 
   const openPost = (e) => {
     dispatch(postIdSet(e.target.getAttribute(['data-post-id'])));
-	// onOpen(e.target.getAttribute(['data-post-id']));
+    // onOpen(e.target.getAttribute(['data-post-id']));
   };
 
   const get = (e) => {
     dispatch(postIdSet(e.target.getAttribute(['data-post-id'])));
-	// getId(e.target.getAttribute(['data-post-id']));
+    // getId(e.target.getAttribute(['data-post-id']));
     onModalShow();
   };
 

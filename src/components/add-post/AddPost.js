@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { Form, FloatingLabel, Button } from 'react-bootstrap';
 import Services from '../../services/services';
-import {postCreated} from '../posts/postsSlice';
+import { postCreated } from '../posts/postsSlice';
 
 import './addPost.scss';
 
@@ -27,8 +27,8 @@ function AddPost(props) {
     const data = JSON.stringify({ title, body });
     getResourse('https://simple-blog-api.crew.red/posts', 'POST', data)
       .then((result) => {
-        dispatch(postCreated(result))
-		// props.onSuccess(result);
+        dispatch(postCreated(result));
+        // props.onSuccess(result);
       })
       .then(() => {
         setTitle('');

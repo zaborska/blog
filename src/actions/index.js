@@ -1,15 +1,16 @@
-import { postsFetching, postsFetched, postsFetchingError } from '../slices/postsSlice';
+import { createAsyncThunk } from '@reduxjs/toolkit';
+import { postsFetchStart, postsFetchFinish, postsFetchFail } from '../slices/postsSlice';
+
 import api from '../services/api';
 
 export const fetchPosts = (getResourse) => (dispatch) => {
-  dispatch(postsFetching());
-  // getResourse('https://simple-blog-api.crew.red/posts')
+  dispatch(postsFetchStart());
   api
     .getPosts()
     .then((result) => {
-      dispatch(postsFetched(result));
+      dispatch(postsFetchFinish(result));
     })
     .catch(() => {
-      dispatch(postsFetchingError());
+      dispatch(postsFetchFail());
     });
 };

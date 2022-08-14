@@ -1,4 +1,4 @@
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
   posts: [],
@@ -12,25 +12,37 @@ export const postsSlice = createSlice({
   name: 'posts',
   initialState,
   reducers: {
-    postsFetching: (state) => {
+    // fetch posts
+    postsFetchStart: (state) => {
       state.loading = true;
       state.error = false;
     },
-    postsFetched: (state, action) => {
+    postsFetchFinish: (state, action) => {
       state.loading = false;
       state.posts = action.payload;
     },
-    postsFetchingError: (state) => {
+    postsFetchFail: (state) => {
       state.loading = false;
       state.error = true;
     },
+    // create post
+    // TODO
+    // postCreateStart
+    // postCreateFinish
+    // postCreateFail
     postCreated: (state, action) => {
       state.posts.push(action.payload);
     },
+    // delete post
+    // TODO
+    // postDeleteStart
+    // postDeleteFinish
+    // postDeleteFail
     postDeleted: (state, action) => {
       state.posts = action.payload;
       // state.posts.filter(item => item.id !== action.payload);
     },
+    //
     postIdSet: (state, action) => {
       state.postId = action.payload;
     }
@@ -40,14 +52,12 @@ export const postsSlice = createSlice({
 const { actions, reducer } = postsSlice;
 
 export const {
-  postsFetching,
-  postsFetched,
-  postsFetchingError,
+  postsFetchStart,
+  postsFetchFinish,
+  postsFetchFail,
   postCreated,
   postDeleted,
   postIdSet
 } = actions;
-
-// export const selectCount = (state) => state.counter.value;
 
 export default reducer;

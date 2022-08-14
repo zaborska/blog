@@ -4,9 +4,6 @@ import { Routes, Route, Link } from 'react-router-dom';
 import { RingLoader } from 'react-spinners';
 import { fetchPosts } from '../../actions';
 import { postDeleted } from '../../slices/postsSlice';
-
-// import Services from '../../services/api';
-
 import Post from '../post/Post';
 import AddPost from '../add-post/AddPost';
 import CommentedPost from '../commented-post/CommentedPost';
@@ -18,8 +15,6 @@ import ErrorMessage from '../error/ErrorMessage';
 function Posts() {
   const [postId, setPostId] = useState(null);
   const [showModal, setShowModal] = useState('');
-
-  // const { getResourse } = Services();
   const dispatch = useDispatch();
 
   const posts = useSelector((state) => state.posts.posts);
@@ -27,19 +22,10 @@ function Posts() {
   const error = useSelector((state) => state.posts.error);
 
   useEffect(() => {
-    onPostLoading();
+    loadPosts();
   }, []);
 
-  const onPostLoading = () => {
-    // getResourse('https://simple-blog-api.crew.red/posts')
-    //   .then((result) => {
-    //     setPosts(result);
-    //     setLoading(false);
-    //   })
-    //   .catch((e) => {
-    //     setError(true);
-    //     setLoading(false);
-    //   });
+  const loadPosts = () => {
     dispatch(fetchPosts());
   };
 
@@ -66,7 +52,7 @@ function Posts() {
     const newPosts = posts;
     newPosts.push(newPost);
     // setPosts(newPosts);
-    onPostLoading();
+    loadPosts();
   };
 
   const deletePost = (id) => {

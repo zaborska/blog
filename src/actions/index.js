@@ -3,7 +3,7 @@ import { postsFetchStart, postsFetchFinish, postsFetchFail } from '../slices/pos
 
 import api from '../services/api';
 
-export const fetchPosts = (getResourse) => (dispatch) => {
+export const fetchPosts = () => (dispatch) => {
   dispatch(postsFetchStart());
   api
     .getPosts()

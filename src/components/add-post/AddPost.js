@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Form, FloatingLabel, Button } from 'react-bootstrap';
-// import Services from '../../services/api';
-import { postCreated } from '../../slices/postsSlice';
+import { addPost } from '../../actions';
+import api from '../../services/api';
+// import { postCreated } from '../../slices/postsSlice';
 
 import './addPost.scss';
 
@@ -10,8 +11,9 @@ function AddPost(props) {
   const [title, setTitle] = useState('');
   const [body, setBody] = useState('');
 
-  // const { getResourse } = Services();
   const dispatch = useDispatch();
+  const loading = useSelector(state => state.posts.loading);
+
   const onInput = (e) => {
     if (e.target.name === 'title') {
       setTitle(e.target.value);
@@ -34,6 +36,13 @@ function AddPost(props) {
     //     setTitle('');
     //     setBody('');
     //   });
+	const data = JSON.stringify({ title, body });
+  dispatch(addPost(data));
+  if(!loading) {
+    setTitle('');
+	  setBody('');
+  }
+
   };
 
   const isDisabled = !title || !body;

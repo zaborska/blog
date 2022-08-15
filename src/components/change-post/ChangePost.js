@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { Form, FloatingLabel, Button } from 'react-bootstrap';
 import { Link, useParams } from 'react-router-dom';
+import {useDispatch} from "react-redux";
+import {changePosts} from "../../actions";
 // import Services from '../../services/api';
 
 function ChangePost({ posts, onSuccess }) {
@@ -11,6 +13,7 @@ function ChangePost({ posts, onSuccess }) {
   const [body, setBody] = useState('');
   const [comment, setComment] = useState(null);
 
+  const dispatch = useDispatch();
   // const { getResourse } = Services();
 
   useEffect(() => {
@@ -37,6 +40,7 @@ function ChangePost({ posts, onSuccess }) {
 
   const onAddPost = () => {
     const data = JSON.stringify({ title, body });
+    dispatch(changePosts(id, data));
     // getResourse(`https://simple-blog-api.crew.red/posts/${id}`, 'PUT', data)
     //   .then((result) => {
     //     onSuccess(result);

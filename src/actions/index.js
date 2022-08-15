@@ -1,5 +1,14 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { postsFetchStart, postsFetchFinish, postsFetchFail } from '../slices/postsSlice';
+import { postsFetchStart, 
+		postsFetchFinish, 
+		postsFetchFail, 
+		postsCreateStart, 
+		postsCreateFinish, 
+		postsCreateFail,
+		postChangeStart,
+		postChangeFinish,
+		postChangeFail 
+	} from '../slices/postsSlice';
 
 import api from '../services/api';
 
@@ -14,3 +23,27 @@ export const fetchPosts = () => (dispatch) => {
       dispatch(postsFetchFail());
     });
 };
+
+export const addPost = (data) => (dispatch) => {
+	dispatch(postsCreateStart());
+	api
+	  .addPost(data)
+	  .then((result) => {
+		dispatch(postsCreateFinish(result));
+	  })
+	  .catch(() => {
+		dispatch(postsCreateFail());
+	  });
+  };
+
+  export const changePosts = (id, data) => (dispatch) => {
+	dispatch(postChangeStart());
+	api
+	  .changePost(id, data)
+	  .then((result) => {
+		dispatch(postChangeFinish(result));
+	  })
+	  .catch(() => {
+		dispatch(postChangeFail());
+	  });
+  };

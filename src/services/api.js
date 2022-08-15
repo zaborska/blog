@@ -1,7 +1,7 @@
 class Api {
   url = 'https://simple-blog-api.crew.red/';
 
-  fetch(url, data, method = 'GET') {
+  fetch(url, method = 'GET', data = null ) {
     try {
       const request = fetch(this.url + url, {
         method,
@@ -21,7 +21,19 @@ class Api {
   }
 
   getPosts() {
-    return this.fetch('posts', null)
+    return this.fetch('posts')
+  }
+
+  getPost(id) {
+	  return this.fetch(`posts/${id}?_embed=comments`);
+  }
+  
+  addPost(data) {
+	  return this.fetch('posts', 'POST', data)
+  }
+  
+  changePost(id, data) {
+	  return this.fetch(`posts/${id}`, 'PUT', data)
   }
 }
 

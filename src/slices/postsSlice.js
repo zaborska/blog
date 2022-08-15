@@ -30,9 +30,36 @@ export const postsSlice = createSlice({
     // postCreateStart
     // postCreateFinish
     // postCreateFail
-    postCreated: (state, action) => {
-      state.posts.push(action.payload);
+
+    postsCreateStart: (state) => {
+      state.loading = true;
+      state.error = false;
     },
+    postsCreateFinish: (state, action) => {
+      state.loading = false;
+      state.posts.push(action.payload);
+      // state.posts = action.payload;
+    },
+    postsCreateFail: (state) => {
+      state.loading = false;
+      state.error = true;
+    },
+
+    postChangeStart: (state) => {
+      state.loading = true;
+      state.error = false;
+    },
+    postChangeFinish: (state, action) => {
+      state.loading = false;
+      // state.posts = action.payload;
+    },
+    postChangeFail: (state) => {
+      state.loading = false;
+      state.error = true;
+    },
+    // postCreated: (state, action) => {
+    //   state.posts.push(action.payload);
+    // },
     // delete post
     // TODO
     // postDeleteStart
@@ -55,7 +82,12 @@ export const {
   postsFetchStart,
   postsFetchFinish,
   postsFetchFail,
-  postCreated,
+  postsCreateStart,
+  postsCreateFinish,
+  postsCreateFail,
+  postChangeStart,
+  postChangeFinish,
+  postChangeFail,
   postDeleted,
   postIdSet
 } = actions;

@@ -1,9 +1,9 @@
 import { postsFetchStart, 
 		postsFetchFinish, 
 		postsFetchFail, 
-		postsCreateStart, 
-		postsCreateFinish, 
-		postsCreateFail,
+		postCreateStart, 
+		postCreateFinish, 
+		postCreateFail,
 		postChangeStart,
 		postChangeFinish,
 		postChangeFail,
@@ -28,14 +28,14 @@ export const fetchPosts = () => (dispatch) => {
 };
 
 export const addPost = (data) => (dispatch) => {
-	dispatch(postsCreateStart());
+	dispatch(postCreateStart());
 	api
 	  .addPost(data)
 	  .then((result) => {
-		dispatch(postsCreateFinish(result));
+		dispatch(postCreateFinish(result));
 	  })
 	  .catch(() => {
-		dispatch(postsCreateFail());
+		dispatch(postCreateFail());
 	  });
   };
 
@@ -52,14 +52,14 @@ export const addPost = (data) => (dispatch) => {
   };
 
   export const addComment = (data) => (dispatch) => {
-	dispatch(postsCreateStart());
+	dispatch(postCreateStart());
 	api
 	  .addComment(data)
 	  .then((result) => {
 		dispatch(commentCreateFinish());
 	  })
 	  .catch(() => {
-		dispatch(postsCreateFail());
+		dispatch(postCreateFail());
 	  });
   };
 
@@ -71,6 +71,6 @@ export const addPost = (data) => (dispatch) => {
 		dispatch(postsDeleteFinish(id));
 	  })
 	  .catch(() => {
-		dispatch(postsCreateFail());
+		dispatch(postCreateFail());
 	  });
   };

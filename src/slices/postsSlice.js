@@ -3,9 +3,8 @@ import { createSlice } from '@reduxjs/toolkit';
 const initialState = {
   posts: [],
   postId: null,
-  showModal: '',
   error: false,
-  loading: true
+  loading: false
 };
 
 export const postsSlice = createSlice({
@@ -31,16 +30,15 @@ export const postsSlice = createSlice({
     // postCreateFinish
     // postCreateFail
 
-    postsCreateStart: (state) => {
+    postCreateStart: (state) => {
       state.loading = true;
       state.error = false;
     },
-    postsCreateFinish: (state, action) => {
+    postCreateFinish: (state, action) => {
       state.loading = false;
       state.posts.push(action.payload);
-      // state.posts = action.payload;
     },
-    postsCreateFail: (state) => {
+    postCreateFail: (state) => {
       state.loading = false;
       state.error = true;
     },
@@ -111,9 +109,9 @@ export const {
   postsFetchStart,
   postsFetchFinish,
   postsFetchFail,
-  postsCreateStart,
-  postsCreateFinish,
-  postsCreateFail,
+  postCreateStart,
+  postCreateFinish,
+  postCreateFail,
   postChangeStart,
   postChangeFinish,
   postChangeFail,

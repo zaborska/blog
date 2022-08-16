@@ -2,8 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Routes, Route, Link } from 'react-router-dom';
 import { RingLoader } from 'react-spinners';
-import { fetchPosts } from '../../actions';
-import { postDeleted } from '../../slices/postsSlice';
+import { fetchPosts, deletePosts } from '../../actions';
 import Post from '../post/Post';
 import AddPost from '../add-post/AddPost';
 import CommentedPost from '../commented-post/CommentedPost';
@@ -58,8 +57,9 @@ function Posts() {
   const deletePost = (id) => {
     const allPosts = posts.filter((item) => +item.id !== +id);
     // getResourse(`https://simple-blog-api.crew.red/posts/${id}`, 'DELETE').then(console.log('Ok'));
-    dispatch(postDeleted(allPosts));
-    setShowModal('');
+    // dispatch(postDeleted(allPosts));
+    dispatch(deletePosts(id));
+	setShowModal('');
   };
 
   const onOpenModal = () => {

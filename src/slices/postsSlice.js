@@ -51,12 +51,24 @@ export const postsSlice = createSlice({
     },
     postChangeFinish: (state, action) => {
       state.loading = false;
+	  const newPosts = state.posts.map((item)=> {
+		if(item.id === action.payload.id) {
+			return action.payload;
+		}
+		return item;
+	  });
+	  state.posts = newPosts;
       // state.posts = action.payload;
     },
     postChangeFail: (state) => {
       state.loading = false;
       state.error = true;
     },
+
+	commentCreateFinish: (state) => {
+	  state.loading = false;
+    state.error = false;
+	},
     // postCreated: (state, action) => {
     //   state.posts.push(action.payload);
     // },
@@ -65,11 +77,28 @@ export const postsSlice = createSlice({
     // postDeleteStart
     // postDeleteFinish
     // postDeleteFail
-    postDeleted: (state, action) => {
-      state.posts = action.payload;
-      // state.posts.filter(item => item.id !== action.payload);
+
+    postsDeleteStart: (state) => {
+      state.loading = true;
+      state.error = false;
     },
-    //
+    postsDeleteFinish: (state, action) => {
+      state.loading = false;
+      let index
+      state.posts.forEach((item,i) => {
+        if(item.id === +action.payload) {
+          index = i;
+        }
+      });
+      state.posts.splice(index, 1);
+
+      // state.posts = action.payload;
+    },
+    postsDeleteFail: (state) => {
+      state.loading = false;
+      state.error = true;
+    },
+
     postIdSet: (state, action) => {
       state.postId = action.payload;
     }
@@ -88,7 +117,10 @@ export const {
   postChangeStart,
   postChangeFinish,
   postChangeFail,
-  postDeleted,
+  commentCreateFinish,
+  postsDeleteStart,
+  postsDeleteFinish,
+  postsDeleteFail,
   postIdSet
 } = actions;
 

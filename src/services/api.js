@@ -35,6 +35,14 @@ class Api {
   changePost(id, data) {
 	  return this.fetch(`posts/${id}`, 'PUT', data)
   }
+
+  addComment(data) {
+	  return this.fetch('comments', 'POST', data)
+  }
+  
+  deletePost(id) {
+	return this.fetch(`posts/${id}`, 'DELETE')
+  }
 }
 
 const api = new Api(); 

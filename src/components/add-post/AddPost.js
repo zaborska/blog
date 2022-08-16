@@ -40,7 +40,7 @@ function AddPost(props) {
   dispatch(addPost(data));
   if(!loading) {
     setTitle('');
-	  setBody('');
+	setBody('');
   }
 
   };

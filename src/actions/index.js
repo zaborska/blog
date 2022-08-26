@@ -39,12 +39,12 @@ export const addPost = (data) => (dispatch) => {
 	  });
   };
 
-  export const changePosts = (id, data) => (dispatch) => {
+  export const changePosts = (id, data, newPosts) => (dispatch) => {
 	dispatch(postChangeStart());
 	api
 	  .changePost(id, data)
 	  .then((result) => {
-		dispatch(postChangeFinish(result));
+		  dispatch(postChangeFinish(newPosts));
 	  })
 	  .catch(() => {
 		dispatch(postChangeFail());

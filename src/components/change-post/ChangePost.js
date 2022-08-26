@@ -13,19 +13,22 @@ function ChangePost({ posts, onSuccess }) {
   const [body, setBody] = useState('');
   const [comment, setComment] = useState(null);
   const loading = useSelector(state => state.posts.loading);
+  const oldPosts = useSelector(state => state.posts.posts);
   const dispatch = useDispatch();
-  // const { getResourse } = Services();
+
 
   useEffect(() => {
+	  
     const post = posts.filter((item) => {
-      if (item.id === +id) {
+		console.log("render");
+		if (item.id === +id) {
         setChangePost(item);
         setTitle(item.title);
         setBody(item.body);
-      }
+      }  
     });
   }, []);
-
+console.log(title);
   const onInput = (e) => {
     if (e.target.name === 'title') {
       setTitle(e.target.value);
@@ -40,8 +43,15 @@ function ChangePost({ posts, onSuccess }) {
 
   const onAddPost = () => {
     const data = JSON.stringify({ title, body });
-    dispatch(changePosts(id, data));
-	
+    const newPosts = oldPosts.map((item)=> {
+      if(item.id === +id) {
+        return {title, body, id};
+      }
+      return item;
+    });
+    dispatch(changePosts(id, data, newPosts));
+
+
     // getResourse(`https://simple-blog-api.crew.red/posts/${id}`, 'PUT', data)
     //   .then((result) => {
     //     onSuccess(result);

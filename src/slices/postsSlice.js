@@ -24,12 +24,8 @@ export const postsSlice = createSlice({
       state.loading = false;
       state.error = true;
     },
+    
     // create post
-    // TODO
-    // postCreateStart
-    // postCreateFinish
-    // postCreateFail
-
     postCreateStart: (state) => {
       state.loading = true;
       state.error = false;
@@ -42,21 +38,25 @@ export const postsSlice = createSlice({
       state.loading = false;
       state.error = true;
     },
-
+    // TODO
+    // postCreateStart
+    // postCreateFinish
+    // postCreateFail
     postChangeStart: (state) => {
       state.loading = true;
       state.error = false;
     },
     postChangeFinish: (state, action) => {
       state.loading = false;
-	  const newPosts = state.posts.map((item)=> {
-		if(item.id === action.payload.id) {
-			return action.payload;
-		}
-		return item;
-	  });
-	  state.posts = newPosts;
-      // state.posts = action.payload;
+	  // const newPosts = state.posts.map((item)=> {
+		// if(item.id === action.payload.id) {
+		//   console.log(action.payload)
+      //     return action.payload;
+		// }
+		// return item;
+	  // });
+	  // state.posts = newPosts;
+      state.posts = action.payload;
     },
     postChangeFail: (state) => {
       state.loading = false;
